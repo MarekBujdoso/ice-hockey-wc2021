@@ -1,17 +1,16 @@
-import firebase from 'firebase';
+import firebase from "firebase";
 
 const config = {
-    apiKey: "AIzaSyASNUIGe9CVqijyuErm-i-CcQTatggMM9o",
-    authDomain: "reactauth-8a1dd.firebaseapp.com",
-    databaseURL: "https://reactauth-8a1dd.firebaseio.com",
-    projectId: "reactauth-8a1dd",
-    storageBucket: "reactauth-8a1dd.appspot.com",
-    messagingSenderId: "749438443616",
-    appId: "1:749438443616:web:83ca0a68c70ec151966305"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();
-
