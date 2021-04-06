@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import SignIn from './signIn/SignIn';
 import SignUp from './signUp/SignUp';
-import { auth } from '../../helper/Firebase';
 import './Auth.scss';
 import { useHistory } from 'react-router-dom';
+import { FirebaseContext } from "../../context";
 
 function Auth() {
     const history = useHistory();
     const [authType, setAuthType] = useState('signIn');
+    const { auth } = React.useContext(FirebaseContext);
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {

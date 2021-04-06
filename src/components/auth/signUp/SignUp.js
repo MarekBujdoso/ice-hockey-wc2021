@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import './SignUp.scss';
-import { auth } from '../../../helper/Firebase';
 import { useHistory } from 'react-router-dom';
+import { FirebaseContext } from "../../../context";
 
 function SignUp() {
+    const { auth } = React.useContext(FirebaseContext);
     const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import './Main.scss';
-import { auth } from '../../helper/Firebase';
 import { useHistory } from 'react-router-dom';
+import { FirebaseContext } from "../../context";
 
 function Main() {
+    const { auth } = React.useContext(FirebaseContext);
+
     useEffect(() => {
         auth.onAuthStateChanged(user => {
             if (!user) history.push('/auth');
