@@ -13,12 +13,7 @@ function Matches() {
   return (
     <div className="matches">
       <hr />
-      {matches &&
-        matches.map((match) => (
-          <>
-            <Match key={match.id} data={match} /> <hr />
-          </>
-        ))}
+      {matches && matches.map((match) => <Match key={match.id} data={match} />)}
     </div>
   );
 }

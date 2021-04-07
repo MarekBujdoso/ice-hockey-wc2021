@@ -1,14 +1,34 @@
 import React from "react";
 import { NumericSpinner, Versus } from "../common/";
 import "./Match.scss";
+import { FirebaseContext } from "../../context";
 
 function Match(props) {
+  const { auth, firestore, firebase } = React.useContext(FirebaseContext);
+  const { uid } = auth.currentUser;
+
   const { data = {} } = props;
+  const { matchStart = {}, teams, id } = data;
   const [value1, setValue1] = React.useState(0);
   const [value2, setValue2] = React.useState(0);
 
-  const { matchStart = {}, teams } = data;
   const date = matchStart.seconds ? new Date(matchStart.seconds * 1000) : null;
+  const matchRef = firestore.collection(`users`).doc(uid);
+
+  async function saveBet() {
+    matchRef
+      .set(
+        {
+          bet: { [id]: [value1, value2] },
+          lastUpdate: firebase.firestore.FieldValue.serverTimestamp(),
+        },
+        { merge: true }
+      )
+      .then(() => console.log('bet saved'))
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  }
 
   return (
     <div className="match">
@@ -30,8 +50,9 @@ function Match(props) {
         }
       />
       <span className="match__date">{date && date.toLocaleString()}</span>
-
-      {/* <button>make a guess</button> */}
+      <br />
+      <button onClick={saveBet}>make a guess</button>
+      <hr />
     </div>
   );
 }
