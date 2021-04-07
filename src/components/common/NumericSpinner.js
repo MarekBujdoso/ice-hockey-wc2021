@@ -2,7 +2,7 @@ import React from "react";
 import "./NumericSpinner.scss";
 
 function NumericSpinner(props) {
-  const { value, onChange } = props;
+  const { value, onChange, min } = props;
 
   function onChangeHandler(change) {
     if (onChange) onChange({ value: value + change });
@@ -16,10 +16,11 @@ function NumericSpinner(props) {
       >
         +
       </button>
-      <div  className="numeric-spinner__value">{value}</div>
+      <div className="numeric-spinner__value">{value}</div>
       <button
         className="numeric-spinner__decrement"
-        onClick={() => onChangeHandler(+1)}
+        onClick={() => onChangeHandler(-1)}
+        disabled={min === value}
       >
         -
       </button>
