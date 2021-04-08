@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import './Main.scss';
 import { useHistory } from 'react-router-dom';
 import { FirebaseContext } from "../../context";
+import Matches from './Matches';
 
 function Main() {
     const { auth } = React.useContext(FirebaseContext);
@@ -25,6 +26,8 @@ function Main() {
     return (
         <div className='main'>
             <h1>Hey there, you're logged in!</h1>
+            <Matches />
+            <br />
             <button onClick={logOut}>Log out</button>
         </div>
     )

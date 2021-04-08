@@ -1,0 +1,15 @@
+.numeric-spinner {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  &__increment,
+  &__decrement {
+    padding: 0.5rem;
+    border: none;
+    background: transparent;
+    color: black;
+    box-shadow: none;
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+}
