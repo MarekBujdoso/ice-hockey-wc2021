@@ -6,25 +6,27 @@ import { FirebaseContext } from "../../context";
 function Match(props) {
   const { auth, firestore, firebase } = React.useContext(FirebaseContext);
   const { uid } = auth.currentUser;
-
-  const { data = {} } = props;
+  const { data = {}, bet = [] } = props;
   const { matchStart = {}, teams, id } = data;
-  const [value1, setValue1] = React.useState(0);
-  const [value2, setValue2] = React.useState(0);
-
   const date = matchStart.seconds ? new Date(matchStart.seconds * 1000) : null;
-  const matchRef = firestore.collection(`users`).doc(uid);
+  const [userBet, setUserBet] = React.useState([0, 0]);
+
+  React.useEffect(() => {
+    if (bet[0] >= 0 && bet[1] >= 0) setUserBet([bet[0], bet[1]]);
+  }, [bet[0], bet[1]]);
 
   async function saveBet() {
-    matchRef
+    firestore
+      .collection(`users`)
+      .doc(uid)
       .set(
         {
-          bet: { [id]: [value1, value2] },
+          bet: { [id]: userBet },
           lastUpdate: firebase.firestore.FieldValue.serverTimestamp(),
         },
         { merge: true }
       )
-      .then(() => console.log('bet saved'))
+      .then(() => console.log("bet saved"))
       .catch((error) => {
         console.error("Error writing document: ", error);
       });
@@ -33,25 +35,33 @@ function Match(props) {
   return (
     <div className="match">
       <Versus firstTeam={teams[0]} secondTeam={teams[1]} />
+      <br />
+      <br />
+      <div>your bet</div>
+      <Versus firstTeam={bet[0]} secondTeam={bet[1]} />
+      <br />
+      <br />
+      <div>update your bet</div>
       <Versus
         firstTeam={
           <NumericSpinner
             min={0}
-            value={value1}
-            onChange={(e) => setValue1(e.value)}
+            value={userBet[0]}
+            onChange={(e) => setUserBet([e.value, userBet[1]])}
           />
         }
         secondTeam={
           <NumericSpinner
             min={0}
-            value={value2}
-            onChange={(e) => setValue2(e.value)}
+            value={userBet[1]}
+            onChange={(e) => setUserBet([userBet[0], e.value])}
           />
         }
       />
-      <span className="match__date">{date && date.toLocaleString()}</span>
+      <button onClick={saveBet}>save</button>
       <br />
-      <button onClick={saveBet}>make a guess</button>
+      <span className="match__date">{date && date.toLocaleString()}</span>
+
       <hr />
     </div>
   );
