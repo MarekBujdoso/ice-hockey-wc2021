@@ -31,7 +31,7 @@ function Match(props) {
         console.error("Error writing document: ", error);
       });
   }
-console.log(props)
+
   return (
     <div className="match">
       <Versus
@@ -64,8 +64,6 @@ console.log(props)
       <button onClick={saveBet}>save</button>
       <br />
       <span className="match__date">{date && date.toLocaleString()}</span>
-
-      <hr />
     </div>
   );
 }

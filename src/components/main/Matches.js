@@ -4,6 +4,7 @@ import {
   useDocument,
   useDocumentData,
 } from "react-firebase-hooks/firestore";
+import "./Matches.scss";
 import { FirebaseContext } from "../../context";
 import Match from "./Match";
 
@@ -21,7 +22,6 @@ function Matches() {
 
   return (
     <div className="matches">
-      <hr />
       {matches &&
         matches.map((match) => (
           <Match
