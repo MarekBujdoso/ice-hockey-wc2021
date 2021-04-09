@@ -7,7 +7,7 @@ function Match(props) {
   const { auth, firestore, firebase } = React.useContext(FirebaseContext);
   const { uid } = auth.currentUser;
   const { data = {}, bet = [] } = props;
-  const { matchStart = {}, teams, id, score } = data;
+  const { matchStart = {}, teams, id, score = [] } = data;
   const date = matchStart.seconds ? new Date(matchStart.seconds * 1000) : null;
   const [userBet, setUserBet] = React.useState([0, 0]);
 
@@ -60,7 +60,7 @@ function Match(props) {
         }
         footer="update your bet"
       />
-       <br />
+      <br />
       <button onClick={saveBet}>save</button>
       <br />
       <span className="match__date">{date && date.toLocaleString()}</span>

@@ -2,7 +2,7 @@ import React from "react";
 import "./TeamScore.scss";
 
 function TeamScore(props) {
-  const { score, teamName } = props;
+  const { score = "-", teamName } = props;
   return (
     <div className="team-score">
       <div className="team-score__value">{score}</div>
