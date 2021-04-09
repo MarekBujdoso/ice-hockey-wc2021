@@ -1,20 +1,26 @@
 .versus {
   display: flex;
   justify-content: center;
-
-  &__first-team,
-  &__separator,
-  &__second-team {
+  flex-direction: column;
+  align-items: center;
+  &__body {
     display: flex;
-    align-items: center;
-  }
+    justify-content: center;
 
-  &__separator {
-    margin: 0 0.5rem;
-  }
+    &__first-team,
+    &__separator,
+    &__second-team {
+      display: flex;
+      align-items: center;
+    }
 
-  &__first-team,
-  &__second-team {
-    font-size: 1.3rem;
+    &__separator {
+      margin: 0 0.5rem;
+    }
+
+    &__first-team,
+    &__second-team {
+      font-size: 1.3rem;
+    }
   }
 }
