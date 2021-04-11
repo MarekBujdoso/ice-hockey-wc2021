@@ -1,0 +1,41 @@
+@import "../../variables.scss";
+
+.bet-edit {
+  &__wave {
+    position: relative;
+    bottom: -4px;
+    fill: $primary-color;
+  }
+  &__wave--top {
+    position: relative;
+    bottom: -4px;
+  }
+
+  &__versus {
+    background-color: $primary-color;
+    color: white;
+    margin-top: -7px;
+    margin-bottom: -7px;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__actions {
+    display: flex;
+    position: relative;
+    top: -7px;
+    padding: 0 0.5rem;
+    button {
+      flex-grow: 1;
+      background: $primary-color;
+      border: 1px solid white;
+      border-radius: 0.6rem;
+      color: white;
+    }
+  }
+
+  button:hover {
+    cursor: pointer;
+    background-color: $primary-color-hover;
+  }
+}

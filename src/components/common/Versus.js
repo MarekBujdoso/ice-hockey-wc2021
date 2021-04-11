@@ -1,5 +1,6 @@
 import React from "react";
 import "./Versus.scss";
+import { getClassNames } from "../../utils/index";
 
 function Versus(props) {
   const {
@@ -8,9 +9,10 @@ function Versus(props) {
     separator = "vs",
     header,
     footer,
+    className,
   } = props;
   return (
-    <div className="versus">
+    <div className={getClassNames("versus", className)}>
       <div className="versus__header">{header}</div>
       <div className="versus__body">
         <div className="versus__body__first-team">{firstTeam}</div>

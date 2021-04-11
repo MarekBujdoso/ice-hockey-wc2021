@@ -20,6 +20,8 @@ function Matches() {
   const [user] = useDocumentData(userRef);
   const bets = user && user.bet;
 
+  const [matchInEdit, setMatchInEdit] = React.useState(null);
+
   return (
     <div className="matches">
       {matches &&
@@ -28,6 +30,8 @@ function Matches() {
             key={match.id}
             data={match}
             bet={bets ? bets[match.id] : undefined}
+            inEdit={matchInEdit === match.id}
+            setMatchInEdit={setMatchInEdit}
           />
         ))}
     </div>
