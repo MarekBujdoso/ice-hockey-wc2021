@@ -11,6 +11,7 @@ import Main from "./components/main/Main";
 import { FirebaseContext } from "./context";
 import "./App.css";
 import { Header } from "./components/common";
+import LeaderBoard from "./components/leaderboard/LeaderBoard";
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -45,6 +46,7 @@ function App() {
           <Switch>
             <Route path="/auth" component={Auth} />
             <Route path="/main" component={Main} />
+            <Route path="/leaderboard" component={LeaderBoard} />
             <Redirect to="/auth" from="*" />
           </Switch>
         </Router>

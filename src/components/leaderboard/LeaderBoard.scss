@@ -1,0 +1,18 @@
+.leaderboard{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+  &--table {
+    // display: flex;
+
+    &--header {
+      &.left {
+        text-align: left;
+      }
+      &.right {
+        text-align: right;
+      }
+    }
+  }
+}
