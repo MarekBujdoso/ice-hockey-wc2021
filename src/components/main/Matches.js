@@ -4,6 +4,7 @@ import {
   useDocument,
   useDocumentData,
 } from "react-firebase-hooks/firestore";
+import "./Matches.scss";
 import { FirebaseContext } from "../../context";
 import Match from "./Match";
 
@@ -19,15 +20,18 @@ function Matches() {
   const [user] = useDocumentData(userRef);
   const bets = user && user.bet;
 
+  const [matchInEdit, setMatchInEdit] = React.useState(null);
+
   return (
     <div className="matches">
-      <hr />
       {matches &&
         matches.map((match) => (
           <Match
             key={match.id}
             data={match}
             bet={bets ? bets[match.id] : undefined}
+            inEdit={matchInEdit === match.id}
+            setMatchInEdit={setMatchInEdit}
           />
         ))}
     </div>

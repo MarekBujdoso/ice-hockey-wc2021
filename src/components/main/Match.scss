@@ -1,2 +1,57 @@
-.match{
+@import '../../variables.scss';
+
+.match {
+  border: 1px solid #676767;
+margin: 1rem;
+  border-radius: 1rem;
+  position: relative;
+
+  &:hover{
+      transform: scale(1.1);
+  }
+  &--edit{
+      border-color: #0099fe;
+  }
+
+  &__button {
+    cursor: pointer;
+    border-radius: 1rem;
+    padding: 1rem;
+    color: #676767;
+    display: block;
+    outline: none;
+    border: none;
+    width: 100%;
+    background: transparent;
+    position: relative;
+    &:hover::after {
+      width: 100%;
+      height: 100%;
+      content: "Udate your bet";
+      color: $primary-color;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(255, 255, 255, 0.904);
+      border-radius: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+  }
+  &__edit {
+    position: absolute;
+    background: white;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 1rem;
+  }
+
+  &__date {
+    display: block;
+    padding: 0.5rem;
+  }
 }

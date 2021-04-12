@@ -1,0 +1,12 @@
+.team-score {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  &__value {
+    font-size: 2rem;
+  }
+  &__name {
+    font-size: 0.8rem;
+  }
+}

@@ -10,6 +10,7 @@ import Auth from "./components/auth/Auth";
 import Main from "./components/main/Main";
 import { FirebaseContext } from "./context";
 import "./App.css";
+import { Header } from "./components/common";
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -39,6 +40,7 @@ function App() {
   return (
     <div className="App">
       <FirebaseContext.Provider value={firebaseData}>
+        <Header />
         <Router>
           <Switch>
             <Route path="/auth" component={Auth} />
