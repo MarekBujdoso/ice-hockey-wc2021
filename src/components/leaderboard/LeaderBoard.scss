@@ -1,17 +1,41 @@
-.leaderboard{
+.leaderboard {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  
-  &--table {
-    // display: flex;
+  width: 100%;
+  flex-direction: column;
+  font-family: "DM Sans", sans-serif;
+  color: #676767;
 
-    &--header {
+  &--table {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &--line {
+    display: flex;
+
+    .boardheader {
+      font-weight: bold;
+      color: black;
+
       &.left {
         text-align: left;
+        width: 200px;
       }
       &.right {
         text-align: right;
+        width: 100px;
+      }
+    }
+    .boardline {
+      &.left {
+        text-align: left;
+        width: 200px;
+      }
+      &.right {
+        text-align: right;
+        width: 100px;
       }
     }
   }
