@@ -3,7 +3,7 @@ import { NumericSpinner, Versus, TeamScore } from "../common/";
 import "./Match.scss";
 import { FirebaseContext } from "../../context";
 import BetEdit from "./BetEdit";
-import {getClassNames} from '../../utils';
+import { getClassNames, calculatePoints } from '../../utils';
 
 function Match(props) {
   const { auth, firestore, firebase } = React.useContext(FirebaseContext);
@@ -28,6 +28,7 @@ function Match(props) {
           <BetEdit bet={bet} id={id} closeEdit={() => setMatchInEdit(null)} />
         </div>
       )}
+      <span className="match__points">Points:</span><span>{calculatePoints(score, bet)}</span>
     </div>
   );
 }
