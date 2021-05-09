@@ -8,7 +8,7 @@ import { getClassNames, calculatePoints } from '../../utils';
 function Match(props) {
   const { auth, firestore, firebase } = React.useContext(FirebaseContext);
   const { uid } = auth.currentUser;
-  const { data = {}, bet = [], inEdit, setMatchInEdit } = props;
+  const { data = {}, bet = {}, inEdit, setMatchInEdit, userId } = props;
   const { matchStart = {}, teams = [], id, score = [] } = data;
   const date = matchStart.seconds ? new Date(matchStart.seconds * 1000) : null;
 
@@ -20,15 +20,15 @@ function Match(props) {
           secondTeam={<TeamScore score={score[1]} teamName={teams[1]} />}
         />
         <br />
-        <Versus firstTeam={bet[0]} secondTeam={bet[1]} footer="your bet" />
+        <Versus firstTeam={bet.team1} secondTeam={bet.team2} footer="your bet" />
       </button>
       <span className="match__date">{date && date.toLocaleString()}</span>
       {inEdit && (
         <div className="match__edit">
-          <BetEdit bet={bet} id={id} closeEdit={() => setMatchInEdit(null)} />
+          <BetEdit bet={bet} id={id} userId={userId} matchId={data.id} closeEdit={() => setMatchInEdit(null)} />
         </div>
       )}
-      <span className="match__points">Points:</span><span>{calculatePoints(score, bet)}</span>
+      <span className="match__points">Points:</span><span>{calculatePoints(score, [bet.team1, bet.team2])}</span>
     </div>
   );
 }

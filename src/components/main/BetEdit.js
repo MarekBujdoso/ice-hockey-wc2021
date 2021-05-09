@@ -6,28 +6,50 @@ import { FirebaseContext } from "../../context";
 function BetEdit(props) {
   const { auth, firestore, firebase } = React.useContext(FirebaseContext);
   const { uid } = auth.currentUser;
-  const { bet, id, closeEdit } = props;
-  const [userBet, setUserBet] = React.useState([bet[0] || 0, bet[1] || 0]);
+  const { bet, id, closeEdit, userId, matchId } = props;
+  const [userBet, setUserBet] = React.useState({
+    team1: bet.team1 || 0,
+    team2: bet.team2 || 0,
+  });
 
   React.useEffect(() => {
-    if (bet[0] >= 0 && bet[1] >= 0) setUserBet([bet[0], bet[1]]);
-  }, [bet[0], bet[1]]);
+    if (bet.team1 >= 0 && bet.team2 >= 0) setUserBet({ ...bet });
+    console.log("bet", bet, bet.betDate);
+  }, [bet]);
 
   async function saveBet() {
-    firestore
-      .collection(`users`)
-      .doc(uid)
-      .set(
-        {
-          bet: { [id]: userBet },
-          lastUpdate: firebase.firestore.FieldValue.serverTimestamp(),
-        },
-        { merge: true }
-      )
-      .then(closeEdit)
-      .catch((error) => {
-        console.error("Error writing document: ", error);
-      });
+    if (!userBet.betDate) {
+      firestore
+        .collection(`users`)
+        .doc(userId)
+        .collection(`bets`)
+        .add({
+          ...userBet,
+          betDate: firebase.firestore.FieldValue.serverTimestamp(),
+          matchId,
+        })
+        .then(closeEdit)
+        .catch((error) => {
+          console.error("Error writing document: ", error);
+        });
+    } else {
+      firestore
+        .collection(`users`)
+        .doc(userId)
+        .collection(`bets`)
+        .doc(bet.id)
+        .set(
+          {
+            ...userBet,
+            betDate: firebase.firestore.FieldValue.serverTimestamp(),
+          },
+          { merge: true }
+        )
+        .then(closeEdit)
+        .catch((error) => {
+          console.error("Error writing document: ", error);
+        });
+    }
   }
 
   return (
@@ -47,15 +69,15 @@ function BetEdit(props) {
         firstTeam={
           <NumericSpinner
             min={0}
-            value={userBet[0]}
-            onChange={(e) => setUserBet([e.value, userBet[1]])}
+            value={userBet.team1}
+            onChange={(e) => setUserBet({ ...userBet, team1: e.value })}
           />
         }
         secondTeam={
           <NumericSpinner
             min={0}
-            value={userBet[1]}
-            onChange={(e) => setUserBet([userBet[0], e.value])}
+            value={userBet.team2}
+            onChange={(e) => setUserBet({ ...userBet, team2: e.value })}
           />
         }
       />
@@ -69,7 +91,7 @@ function BetEdit(props) {
           d="M0,96L34.3,117.3C68.6,139,137,181,206,192C274.3,203,343,181,411,186.7C480,192,549,224,617,218.7C685.7,213,754,171,823,144C891.4,117,960,107,1029,117.3C1097.1,128,1166,160,1234,186.7C1302.9,213,1371,235,1406,245.3L1440,256L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"
         ></path>
       </svg>
-      <div  className="bet-edit__actions">
+      <div className="bet-edit__actions">
         <button onClick={saveBet}>save</button>{" "}
         <button onClick={closeEdit}>cancel</button>
       </div>
